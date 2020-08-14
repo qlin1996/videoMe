@@ -1,34 +1,19 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import {Link} from 'react-router-dom'
 
 class Video extends React.Component {
-  async handleClick() {
-    try {
-      // ask for access to webcam and audio
-      const stream = await window.navigator.mediaDevices.getUserMedia({
-        video: true,
-        audio: true
-      })
-      // once stream is available, set it as the source object for the video tag and start video
-      const video = document.querySelector('video')
-      video.srcObject = stream
-      video.play()
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
   render() {
+    // create roomId
+    let chars = '1234567890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM'
+    let roomId = ''
+    for (let j = 0; j < 6; j++) {
+      roomId += chars[Math.floor(Math.random() * 62)]
+    }
+
     return (
       <div>
-        <div>
-          <video autoPlay="true" controls />
-        </div>
-        <div>
-          <button type="button" onClick={this.handleClick}>
-            Start Video
-          </button>
-        </div>
+        <Link to={`/rooms/${roomId}`}>New Video</Link>
       </div>
     )
   }
