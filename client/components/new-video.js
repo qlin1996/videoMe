@@ -1,5 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import socket from '../socket'
 
 class NewVideo extends React.Component {
   async handleClick() {
@@ -19,10 +20,12 @@ class NewVideo extends React.Component {
   }
 
   render() {
+    // send to server
+    socket.emit('join-room', this.props.match.params.roomId, 10)
     return (
       <div>
-        <div>
-          <video autoPlay="true" muted="muted" className="#video-grid" />
+        <div id="video-grid">
+          <video autoPlay={true} muted="muted" />
         </div>
         <div>
           <button type="button" onClick={this.handleClick}>

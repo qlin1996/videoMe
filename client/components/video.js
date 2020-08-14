@@ -1,19 +1,14 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
+// to create a unique roomId
+import {v4} from 'uuid'
 
 class Video extends React.Component {
   render() {
-    // create roomId
-    let chars = '1234567890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM'
-    let roomId = ''
-    for (let j = 0; j < 6; j++) {
-      roomId += chars[Math.floor(Math.random() * 62)]
-    }
-
     return (
       <div>
-        <Link to={`/rooms/${roomId}`}>New Video</Link>
+        <Link to={`/rooms/${v4()}`}>New Video</Link>
       </div>
     )
   }
