@@ -5,68 +5,72 @@ import socket from '../socket'
 import Peer from 'peerjs'
 
 class NewVideo extends React.Component {
-  all = async () => {
-    try {
-      const videoGrid = document.querySelector('#video-grid')
+  constructor() {
+    super()
+    this.state = {}
+  }
 
-      // create userId
-      const myPeer = new Peer()
-      myPeer.on('open', myUserId => {
-        // 1. send to server (roomId and userId) to let others know youve joined room
-        socket.emit('join-room', this.props.match.params.roomId, myUserId)
-      })
+  async componentDidMount() {
+    const videoGrid = document.querySelector('#video-grid')
+    this.setState({videoGrid})
 
-      // ask for access to webcam and audio
-      const myStream = await window.navigator.mediaDevices.getUserMedia({
-        video: true,
-        audio: true
-      })
-      // once stream is available, set it as the source object for the video tag and start video
-      const myVideo = document.querySelector('#my-video')
-      myVideo.srcObject = myStream
+    const myPeer = new Peer()
+    myPeer.on('open', myUserId => {
+      // 1. send to server (roomId and userId) to let others know youve joined room
+      socket.emit('join-room', this.props.match.params.roomId, myUserId)
+    })
+
+    // ask for access to webcam and audio
+    const myStream = await window.navigator.mediaDevices.getUserMedia({
+      video: true,
+      audio: true
+    })
+    // once stream is available, set it as the source object for the video tag and start video
+    const myVideo = document.createElement('video')
+    myVideo.muted = true
+    myVideo.srcObject = myStream
+    myVideo.addEventListener('loadedmetadata', () => {
       myVideo.play()
+    })
+    this.state.videoGrid.append(myVideo)
 
-      // listen to when someone calls us and answer them
-      myPeer.on('call', call => {
-        call.answer(myStream)
-        // and add to their page
-        const othersVideo = document.createElement('video')
-        call.on('stream', newUserStream => {
-          othersVideo.srcObject = newUserStream
+    // 7. when new user tries to calls us, answer and send them our stream
+    myPeer.on('call', call => {
+      call.answer(myStream)
+      // and add to their page
+      const othersVideo = document.createElement('video')
+      call.on('stream', newUserStream => {
+        othersVideo.srcObject = newUserStream
+        othersVideo.addEventListener('loadedmetadata', () => {
           othersVideo.play()
-          videoGrid.append(othersVideo)
         })
+        this.state.videoGrid.append(othersVideo)
       })
-
-      // 4. listens for user-connected (userId) from server
-      socket.on('user-connected', newUserId => {
-        // 5. use peer to call new users so users connect directly with each other now. send new user your stream.
-        const call = myPeer.call(newUserId, myStream)
-        // 6. when new user sends back their stream, add it to our page
-        const othersVideo = document.createElement('video')
-        call.on('stream', newUserStream => {
-          othersVideo.srcObject = newUserStream
+    })
+    // 4. listens for user-connected (userId) from server
+    socket.on('user-connected', newUserId => {
+      // 5. use peer to call new users so users connect directly with each other now. send new user your stream.
+      const call = myPeer.call(newUserId, myStream)
+      // 6. when new user sends back their stream, add it to our page
+      const othersVideo = document.createElement('video')
+      call.on('stream', newUserStream => {
+        othersVideo.srcObject = newUserStream
+        othersVideo.addEventListener('loadedmetadata', () => {
           othersVideo.play()
-          videoGrid.append(othersVideo)
         })
-        // when new user leaves, remove video
-        call.on('close', () => {
-          othersVideo.remove()
-        })
-        // 6. answer the call
+        this.state.videoGrid.append(othersVideo)
       })
-    } catch (error) {
-      console.error(error)
-    }
+      // when new user leaves, remove video
+      call.on('close', () => {
+        othersVideo.remove()
+      })
+    })
   }
 
   render() {
-    this.all()
     return (
       <div>
-        <div id="video-grid">
-          <video id="my-video" autoPlay={true} muted="muted" />
-        </div>
+        <div id="video-grid" />
       </div>
     )
   }
