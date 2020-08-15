@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
+// to create a unique roomId
+import {v4} from 'uuid'
 
 const Navbar = ({handleClick, isLoggedIn}) => {
   return (
@@ -22,7 +24,7 @@ const Navbar = ({handleClick, isLoggedIn}) => {
             {/* The navbar will show these links before you log in */}
             <Link to="/login">Login</Link>
             <Link to="/signup">Sign Up</Link>
-            <Link to="/rooms">Video</Link>
+            <Link to={`/rooms/${v4()}`}>New Video</Link>
           </div>
         )}
       </nav>
