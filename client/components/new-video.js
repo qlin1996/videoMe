@@ -7,12 +7,18 @@ import Peer from 'peerjs'
 class NewVideo extends React.Component {
   constructor() {
     super()
-    this.state = {}
+    this.state = {
+      peers: {},
+      videoGrid: ''
+    }
   }
 
   async componentDidMount() {
     const videoGrid = document.querySelector('#video-grid')
-    this.setState({videoGrid})
+    this.setState(prevState => ({
+      peers: prevState.peers,
+      videoGrid: videoGrid
+    }))
 
     const myPeer = new Peer()
     myPeer.on('open', myUserId => {
@@ -64,6 +70,16 @@ class NewVideo extends React.Component {
       call.on('close', () => {
         othersVideo.remove()
       })
+      // store this call in state to keep track of all calls
+      this.setState(prevState => ({
+        peers: {...prevState.peers, [newUserId]: call},
+        videoGrid: prevState.videoGrid
+      }))
+    })
+
+    // 8. when new user leaves, update state and let server know
+    socket.on('user-disconnected', newUserId => {
+      if (this.state.peers[newUserId]) this.state.peers[newUserId].close()
     })
   }
 
