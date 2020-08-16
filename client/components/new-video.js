@@ -1,5 +1,4 @@
 import React from 'react'
-import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import socket from '../socket'
 // peer is a WebTRC API that creates a userId and allows us to connect to other users
@@ -89,4 +88,4 @@ class NewVideo extends React.Component {
   }
 }
 
-export default connect(null)(NewVideo)
+export default NewVideo
