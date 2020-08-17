@@ -64,6 +64,11 @@ class NewVideo extends React.Component {
     })
   }
 
+  handleClick = () => {
+    this.setState({otherUsersConnection: 'waiting'})
+    location.reload(true)
+  }
+
   render() {
     return (
       <div className="video-container">
@@ -81,7 +86,9 @@ class NewVideo extends React.Component {
                 <button type="button">Return to home</button>
               </Link>
               <Link to={`/rooms/${v4()}`}>
-                <button type="button">New Video Call</button>
+                <button type="button" onClick={this.handleClick}>
+                  New Video Call
+                </button>
               </Link>
             </div>
           </div>
