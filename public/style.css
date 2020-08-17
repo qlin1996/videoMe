@@ -2,33 +2,69 @@ body {
   font-family: sans-serif;
 }
 
-a {
-  text-decoration: none;
-}
-
-label {
-  display: block;
-}
-
 nav a {
   display: inline-block;
   margin: 1em;
 }
 
-form div {
-  margin: 1em;
-  display: inline-block;
+h1 {
+  color: #00aff0;
 }
 
+.flex {
+  display: flex;
+}
+
+/* Videos */
 video {
-  width: 100%;
-  height: 100%;
   object-fit: cover;
   transform: rotateY(180deg);
 }
 
-#video-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, 300px);
-  grid-auto-rows: 300px;
+#my-video {
+  width: 27%;
+  height: 24%;
+  position: absolute;
+  bottom: 40px;
+  right: 40px;
+  box-shadow: white -3px 3px 10px;
+}
+
+#remote-video {
+  width: 100%;
+  height: 80%;
+  box-shadow: rgba(156, 172, 172, 0.2) 0px 2px 2px,
+    rgba(156, 172, 172, 0.2) 0px 4px 4px, rgba(156, 172, 172, 0.2) 0px 8px 8px,
+    rgba(156, 172, 172, 0.2) 0px 16px 16px,
+    rgba(156, 172, 172, 0.2) 0px 32px 32px,
+    rgba(156, 172, 172, 0.2) 0px 64px 64px;
+}
+
+#videos {
+  width: 80%;
+  height: 80%;
+  margin: 0 auto;
+  position: relative;
+}
+
+/* Icon */
+#icon {
+  display: flex;
+  align-items: center;
+}
+
+.fa-video {
+  color: white;
+  position: absolute;
+  font-size: 23px;
+  top: 36px;
+  left: 27px;
+}
+
+.fa-square {
+  color: #00aff0;
+  position: relative;
+  font-size: 40px;
+  margin-right: 5px;
+  margin-left: 15px;
 }

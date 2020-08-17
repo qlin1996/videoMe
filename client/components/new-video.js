@@ -61,20 +61,25 @@ class NewVideo extends React.Component {
   }
   render() {
     return (
-      <div id="video-grid">
+      <div>
         {this.state.otherUsersConnection === 'waiting' && (
           <p>Waiting for other user to connect</p>
         )}
-        <video
-          ref={video => {
-            this.myVideo = video
-          }}
-        />
-        <video
-          ref={video => {
-            this.remoteVideo = video
-          }}
-        />
+        <div id="videos">
+          <video
+            id="remote-video"
+            ref={video => {
+              this.remoteVideo = video
+            }}
+          />
+          <video
+            id="my-video"
+            ref={video => {
+              this.myVideo = video
+            }}
+          />
+        </div>
+
         {this.state.otherUsersConnection === 'left' && (
           <div>
             <p>The other user has hung up</p>

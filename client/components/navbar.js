@@ -6,7 +6,15 @@ import {v4} from 'uuid'
 const Navbar = () => {
   return (
     <div>
-      <h1>STACKATHON</h1>
+      <div className="flex">
+        <div className="flex" id="icon">
+          <i className="fas fa-square" />
+          <i className="fas fa-video" />
+        </div>
+        <div>
+          <h1>VideoMe</h1>
+        </div>
+      </div>
       <nav>
         <div>
           <Link to={`/rooms/${v4()}`}>New Video</Link>
