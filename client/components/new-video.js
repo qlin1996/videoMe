@@ -3,6 +3,8 @@ import {Link} from 'react-router-dom'
 import socket from '../socket'
 // peer is a WebTRC API that creates a userId and allows us to connect to other users
 import Peer from 'peerjs'
+// to create a unique roomId
+import {v4} from 'uuid'
 
 class NewVideo extends React.Component {
   constructor() {
@@ -55,15 +57,34 @@ class NewVideo extends React.Component {
     })
     // 8. when new user leaves, update state and let server know
     socket.on('user-disconnected', () => {
-      this.remoteVideo.remove()
       this.setState({otherUsersConnection: 'left'})
+      myStream.getTracks().forEach(function(track) {
+        track.stop()
+      })
     })
   }
+
   render() {
     return (
-      <div>
+      <div className="video-container">
         {this.state.otherUsersConnection === 'waiting' && (
-          <p>Waiting for other user to connect</p>
+          <p>Waiting for the other user to connect.</p>
+        )}
+        {this.state.otherUsersConnection === 'connected' && (
+          <p>You are connected.</p>
+        )}
+        {this.state.otherUsersConnection === 'left' && (
+          <div id="user-disconnected" className="flex">
+            <p>The other user has hung up.</p>
+            <div id="buttons" className="flex">
+              <Link to="/">
+                <button type="button">Return to home</button>
+              </Link>
+              <Link to={`/rooms/${v4()}`}>
+                <button type="button">New Video Call</button>
+              </Link>
+            </div>
+          </div>
         )}
         <div id="videos">
           <video
@@ -79,15 +100,6 @@ class NewVideo extends React.Component {
             }}
           />
         </div>
-
-        {this.state.otherUsersConnection === 'left' && (
-          <div>
-            <p>The other user has hung up</p>
-            <Link to="/">
-              <button type="button">Return to home</button>
-            </Link>
-          </div>
-        )}
       </div>
     )
   }

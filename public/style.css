@@ -51,6 +51,7 @@ img {
   margin-right: 5px;
   margin-left: 5px;
 }
+
 /* Home */
 .container {
   position: relative;
@@ -71,6 +72,10 @@ img {
 video {
   object-fit: cover;
   transform: rotateY(180deg);
+}
+
+.video-container p {
+  text-align: center;
 }
 
 #my-video {
@@ -97,4 +102,20 @@ video {
   height: 80%;
   margin: 0 auto;
   position: relative;
+}
+
+#user-disconnected {
+  flex-direction: column;
+}
+
+#buttons {
+  justify-content: center;
+}
+
+button {
+  margin: 0 5px 15px 5px;
+  background-color: white;
+  border: #00aff0 solid 1px;
+  border-radius: 5px;
+  color: #00aff0;
 }
