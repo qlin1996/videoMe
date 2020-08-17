@@ -30,6 +30,7 @@ class NewVideo extends React.Component {
     this.myVideo.addEventListener('loadedmetadata', () => {
       this.myVideo.play()
     })
+
     // 7. when new user tries to call us, answer and send them our stream
     myPeer.on('call', call => {
       call.answer(myStream)
@@ -42,6 +43,7 @@ class NewVideo extends React.Component {
         this.setState({otherUsersConnection: 'connected'})
       })
     })
+
     // 4. listens for user-connected (userId) from server
     socket.on('user-connected', newUserId => {
       // 5. use peer to call new users so users connect directly with each other now. send new user your stream.
@@ -55,6 +57,7 @@ class NewVideo extends React.Component {
         this.setState({otherUsersConnection: 'connected'})
       })
     })
+
     // 8. when new user leaves, update state and let server know
     socket.on('user-disconnected', () => {
       this.setState({otherUsersConnection: 'left'})

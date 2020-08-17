@@ -11,7 +11,8 @@ function Home() {
           video chat application.
         </h1>
         <p>
-          All you have to do is send your URL to your friend to start the call.
+          All you have to do is send your URL to the other user to start the
+          call.
         </p>
       </div>
     </div>

@@ -18,7 +18,7 @@ const Navbar = () => {
       <nav>
         <div>
           <Link to="/">Home</Link>
-          <Link to={`/rooms/${v4()}`}>New Video Call</Link>
+          <Link to={`/rooms/${v4()}`}> Video Call</Link>
         </div>
       </nav>
     </div>
