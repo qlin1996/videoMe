@@ -17,10 +17,10 @@ const Navbar = () => {
       </div>
       <nav>
         <div>
-          <Link to={`/rooms/${v4()}`}>New Video</Link>
+          <Link to="/">Home</Link>
+          <Link to={`/rooms/${v4()}`}>New Video Call</Link>
         </div>
       </nav>
-      <hr />
     </div>
   )
 }
