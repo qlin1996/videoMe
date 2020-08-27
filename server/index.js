@@ -1,13 +1,12 @@
 const path = require('path')
 const express = require('express')
 const morgan = require('morgan')
-// const session = require('express-session')
-// const SequelizeStore = require('connect-session-sequelize')(session.Store)
-// const sessionStore = new SequelizeStore({db})
 const PORT = process.env.PORT || 8080
 const app = express()
 const socketio = require('socket.io')
 const peer = require('peer')
+const nodemailer = require('nodemailer')
+require('dotenv').config()
 module.exports = app
 
 const createApp = () => {
