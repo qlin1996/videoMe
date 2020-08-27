@@ -1,6 +1,7 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 import socket from '../socket'
+import Email from './email'
 // peer is a WebTRC API that creates a userId and allows us to connect to other users
 import Peer from 'peerjs'
 // to create a unique roomId
@@ -75,9 +76,7 @@ class NewVideo extends React.Component {
   render() {
     return (
       <div className="video-container">
-        {this.state.otherUsersConnection === 'waiting' && (
-          <p>Waiting for the other user to connect.</p>
-        )}
+        {this.state.otherUsersConnection === 'waiting' && <Email />}
         {this.state.otherUsersConnection === 'connected' && (
           <p>You are connected.</p>
         )}

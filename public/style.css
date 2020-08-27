@@ -30,6 +30,34 @@ img {
   display: flex;
 }
 
+/* Form */
+label {
+  color: #00aff0;
+}
+
+input {
+  border: 1px solid #00aff0;
+  border-radius: 5px;
+  margin-right: 10px;
+  margin-left: 5px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-input {
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+.form-button {
+  display: flex;
+  justify-content: center;
+}
+
 /* Icon */
 #icon {
   display: flex;
