@@ -5,8 +5,6 @@ const PORT = process.env.PORT || 8080
 const app = express()
 const socketio = require('socket.io')
 const peer = require('peer')
-const nodemailer = require('nodemailer')
-require('dotenv').config()
 module.exports = app
 
 const createApp = () => {
@@ -19,6 +17,9 @@ const createApp = () => {
 
   // static file-serving middleware
   app.use(express.static(path.join(__dirname, '..', 'public')))
+
+  // post route
+  app.use('/', require('./nodemailer/nodemailer'))
 
   // sends index.html
   app.use('*', (req, res) => {
