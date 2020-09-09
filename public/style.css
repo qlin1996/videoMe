@@ -32,14 +32,12 @@ img {
 
 /* Form */
 label {
-  color: #00aff0;
+  margin: 0 auto;
 }
 
 input {
   border: 1px solid #00aff0;
   border-radius: 5px;
-  margin-right: 10px;
-  margin-left: 5px;
 }
 
 form {
@@ -47,15 +45,31 @@ form {
   flex-direction: column;
 }
 
-.form-input {
+.one-field {
   margin-bottom: 10px;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+}
+
+.email {
+  width: 30%;
+  margin: 0 auto;
+}
+
+.message {
+  width: 60%;
+  margin: 0 auto;
+}
+
+textarea {
+  border-color: #00aff0;
+  border-radius: 5px;
 }
 
 .form-button {
   display: flex;
   justify-content: center;
+  margin-bottom: 20px;
 }
 
 /* Icon */

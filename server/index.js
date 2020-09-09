@@ -19,7 +19,7 @@ const createApp = () => {
   app.use(express.static(path.join(__dirname, '..', 'public')))
 
   // post route
-  app.use('/', require('./nodemailer/nodemailer'))
+  app.use('/email', require('./nodemailer/nodemailer'))
 
   // sends index.html
   app.use('*', (req, res) => {

@@ -76,7 +76,9 @@ class NewVideo extends React.Component {
   render() {
     return (
       <div className="video-container">
-        {this.state.otherUsersConnection === 'waiting' && <Email />}
+        {this.state.otherUsersConnection === 'waiting' && (
+          <Email roomId={this.props.match.params.roomId} />
+        )}
         {this.state.otherUsersConnection === 'connected' && (
           <p>You are connected.</p>
         )}
