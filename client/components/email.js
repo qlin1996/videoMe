@@ -1,4 +1,5 @@
 import React from 'react'
+import axios from 'axios'
 
 class Email extends React.Component {
   constructor(props) {
@@ -7,7 +8,9 @@ class Email extends React.Component {
       email: '',
       message: `Your friend has invited you to a video call. Join here https://video-me.herokuapp.com/rooms/${
         this.props.roomId
-      } to connect.`
+      } to connect.`,
+      successfullySent: false,
+      sending: false
     }
   }
 
@@ -15,6 +18,26 @@ class Email extends React.Component {
     this.setState({
       [event.target.name]: event.target.value
     })
+  }
+
+  handleSubmit = async event => {
+    event.preventDefault()
+    this.setState({
+      sending: true
+    })
+    const {data} = await axios.post('/email', {
+      email: this.state.email,
+      message: this.state.message
+    })
+    this.setState({
+      email: '',
+      message: `Your friend has invited you to a video call. Join here https://video-me.herokuapp.com/rooms/${
+        this.props.roomId
+      } to connect.`,
+      successfullySent: data.successfullySent,
+      sending: false
+    })
+    console.log('state', this.state)
   }
 
   render() {
@@ -25,7 +48,7 @@ class Email extends React.Component {
           invite them to this room.
         </p>
 
-        <form method="POST" action="/email">
+        <form>
           <div className="one-field">
             <label>Your Friend's Email</label>
             <input
@@ -48,7 +71,19 @@ class Email extends React.Component {
           </div>
 
           <div className="form-button">
-            <button type="submit">Send Email</button>
+            <button type="submit" onClick={this.handleSubmit}>
+              Send Email
+            </button>
+          </div>
+
+          <div className="one-field">
+            {this.state.sending && <p>Your email is being sent.</p>}
+            {this.state.successfullySent === 'yes' && (
+              <p>Your email was sent successfully.</p>
+            )}
+            {this.state.successfullySent === 'no' && (
+              <p>There was an error sending your email.</p>
+            )}
           </div>
         </form>
       </div>

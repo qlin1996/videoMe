@@ -24,9 +24,10 @@ router.post('/', (req, res, next) => {
   transporter.sendMail(mailOptions, function(error) {
     if (error) {
       console.log('unsuccessful at sending email', error)
+      res.send({successfullySent: 'no'})
     } else {
       console.log('email has been sent sucessfully')
-      res.sendStatus(204)
+      res.send({successfullySent: 'yes'})
     }
   })
 })
