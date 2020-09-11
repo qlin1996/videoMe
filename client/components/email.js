@@ -37,7 +37,6 @@ class Email extends React.Component {
       successfullySent: data.successfullySent,
       sending: false
     })
-    console.log('state', this.state)
   }
 
   render() {
