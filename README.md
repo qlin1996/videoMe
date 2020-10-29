@@ -8,4 +8,3 @@ A simple 1-to-1 video chat application that
 
 ![Screenshot](./public/ScreenShot.png)
 ![Screenshot](./public/ScreenShot1.png)
-![Screenshot](./public/ScreenShot2.png)
